@@ -1,0 +1,29 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" color="#26313A" xmlns="http://www.w3.org/2000/svg">
+<g id="icon">
+<path id="Vector 407" d="M2 8V4C2 2.89543 2.89543 2 4 2H8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path id="Vector 409" d="M2 16V20C2 21.1046 2.89543 22 4 22H8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path id="Vector 408" d="M22 8V4C22 2.89543 21.1046 2 20 2H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path id="Vector 410" d="M22 16V20C22 21.1046 21.1046 22 20 22H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path id="Vector 411" d="M18 14V17.9C18 17.9552 17.9552 18 17.9 18H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<g id="Rectangle 3467750">
+<mask id="path-6-inside-1_62954_71253" fill="white">
+<rect x="5" y="5" width="6" height="6" rx="1"/>
+</mask>
+<rect x="5" y="5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="4" mask="url(#path-6-inside-1_62954_71253)"/>
+</g>
+<g id="Rectangle 3467751">
+<mask id="path-7-inside-2_62954_71253" fill="white">
+<rect x="13" y="5" width="6" height="6" rx="1"/>
+</mask>
+<rect x="13" y="5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="4" mask="url(#path-7-inside-2_62954_71253)"/>
+</g>
+<g id="Rectangle 3467752">
+<mask id="path-8-inside-3_62954_71253" fill="white">
+<rect x="5" y="13" width="6" height="6" rx="1"/>
+</mask>
+<rect x="5" y="13" width="6" height="6" rx="1" stroke="currentColor" stroke-width="4" mask="url(#path-8-inside-3_62954_71253)"/>
+</g>
+<circle id="Ellipse 548" cx="14" cy="18" r="1" fill="currentColor"/>
+<path id="Vector 412" d="M15 14H14.1C14.0448 14 14 14.0448 14 14.1V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</g>
+</svg>

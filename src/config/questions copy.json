@@ -1,0 +1,174 @@
+{
+  "questions": [
+    {
+      "value": "Some initial question. Something like \"Paprika's\"",
+      "initial": true,
+      "answers": [
+        {
+          "correct": true,
+          "option_text": "Ja, we hebben rode, gele en groene paprika's op voorraad",
+          "AI_full_response_text": "Ja, we hebben momenteel rode, gele en groene paprika's op voorraad in onze versafdeling.",
+          "map": "../map1.svg or png",
+          "list": [
+            {
+              "name": "Rode paprika",
+              "price": "€1,49 per stuk",
+              "img": "../paprika-img.png",
+              "stock": "100 stuks"
+            },
+            {
+              "name": "2 Rode paprika",
+              "price": "€1,49 per stuk",
+              "img": "../paprika-img.png",
+              "stock": "200 stuks"
+            },
+            {
+              "name": "3 Rode paprika",
+              "price": "€1,49 per stuk",
+              "img": "../paprika-img.png",
+              "stock": "300 stuks"
+            }
+          ],
+          "followup_text": "U kunt ze vinden in het groente- en fruitgedeelte."
+        },
+        {
+          "correct": false,
+          "option_text": "Nee, we zijn momenteel uitverkocht",
+          "AI_full_response_text": "Op dit moment zijn we helaas uitverkocht. We verwachten morgen een nieuwe levering.",
+          "followup_text": "Wilt u weten wanneer de nieuwe levering precies binnenkomt?",
+          "map": "../map1.svg or png",
+          "list": [
+            {
+              "name": "AH Oven & Airfryer courgette rode paprika",
+              "price": "€12,00 per stuk",
+              "img": "../paprika-img.png",
+              "stock": "12 stuks"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "value": "Some initial question. Something like \"courgette rode\"",
+      "initial": true,
+      "answers": [
+        {
+          "correct": true,
+          "option_text": "Ja, we hebben AH Oven & Airfryer courgette rode paprika",
+          "AI_full_response_text": "Ja, we hebben momenteel rode, gele en groene paprika's op voorraad in onze versafdeling.",
+          "map": "../map1.svg or png",
+          "list": [
+            {
+              "name": "AH Oven & Airfryer courgette rode paprika",
+              "price": "€12,00 per stuk",
+              "img": "../paprika-img.png",
+              "stock": "12 stuks"
+            }
+          ],
+          "followup_text": "U kunt ze vinden in het groente- en fruitgedeelte."
+        },
+        {
+          "correct": false,
+          "option_text": "Nee, we zijn momenteel uitverkocht",
+          "AI_full_response_text": "Op dit moment zijn we helaas uitverkocht. We verwachten morgen een nieuwe levering.",
+          "followup_text": "Wilt u weten wanneer de nieuwe levering precies binnenkomt?",
+          "map": "../map1.svg or png",
+          "list": [
+            {
+              "name": "AH Oven & Airfryer courgette rode paprika",
+              "price": "€12,00 per stuk",
+              "img": "../paprika-img.png",
+              "stock": "12 stuks"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "value": "Zijn er nog paprika's op voorraad?",
+      "answers": [
+        {
+          "correct": true,
+          "option_text": "Ja, we hebben rode, gele en groene paprika's op voorraad",
+          "AI_full_response_text": "Ja, we hebben momenteel rode, gele en groene paprika's op voorraad in onze versafdeling.",
+          "map": "../map1.svg or png",
+          "list": [
+            {
+              "name": "Rode paprika",
+              "price": "€1,49 per stuk",
+              "img": "../paprika-img.png",
+              "stock": "100 stuks"
+            },
+            {
+              "name": "Gele paprika",
+              "price": "€1,49 per stuk",
+              "img": "../paprika-img.png",
+              "stock": "100 stuks"
+            }
+          ],
+          "followup_text": "U kunt ze vinden in het groente- en fruitgedeelte."
+        },
+        {
+          "correct": false,
+          "option_text": "Nee, we zijn momenteel uitverkocht",
+          "AI_full_response_text": "Op dit moment zijn we helaas uitverkocht. We verwachten morgen een nieuwe levering.",
+          "followup_text": "Wilt u weten wanneer de nieuwe levering precies binnenkomt?"
+        }
+      ]
+    },
+    {
+      "value": "Waar kan ik paprika's vinden?",
+      "answers": [
+        {
+          "correct": true,
+          "option_text": "In de versafdeling bij groente en fruit",
+          "AI_full_response_text": "U kunt de paprika's vinden in onze versafdeling bij de groente en fruit, direct naast de tomaten.",
+          "followup_text": "Kan ik u helpen iets specifieks te vinden?",
+          "map": "../map2.svg or png"
+        },
+        {
+          "correct": false,
+          "option_text": "Niet bij de conserven, maar in de versafdeling",
+          "AI_full_response_text": "Verse paprika's vindt u niet bij de conserven. Die vindt u in onze versafdeling.",
+          "followup_text": "Zal ik u de weg wijzen naar de versafdeling?"
+        }
+      ]
+    },
+    {
+      "value": "Wat is de prijs van paprika's?",
+      "label": "Wat is de prijs van paprika's?",
+      "answers": [
+        {
+          "option_text": "€1,49 per stuk",
+          "correct": true,
+          "AI_full_response_text": "De paprika's kosten momenteel €1,49 per stuk. We hebben ook een aanbieding: 3 voor €3,99.",
+          "followup_text": "Wilt u weten welke kleuren paprika's we hebben?"
+        },
+        {
+          "option_text": "€2,99 per kilo",
+          "correct": false,
+          "AI_full_response_text": "De prijs van €2,99 per kilo is niet correct. We verkopen paprika's per stuk voor €1,49.",
+          "followup_text": "Kan ik u nog iets anders vertellen over onze paprika's?"
+        }
+      ]
+    },
+    {
+      "value": "Wanneer komen er nieuwe paprika's binnen?",
+      "label": "Wanneer komen er nieuwe paprika's binnen?",
+      "answers": [
+        {
+          "option_text": "Elke ochtend vers geleverd",
+          "correct": true,
+          "AI_full_response_text": "We krijgen elke ochtend vroeg een verse levering van paprika's binnen, meestal rond 7:00 uur.",
+          "followup_text": "Wilt u weten welke variëteiten we vandaag hebben?"
+        },
+        {
+          "option_text": "Wekelijkse levering op maandag",
+          "correct": false,
+          "AI_full_response_text": "Dit is niet correct. We krijgen dagelijks verse leveringen, niet alleen op maandag.",
+          "followup_text": "Kan ik u vertellen wat we nu op voorraad hebben?"
+        }
+      ]
+    }
+  ]
+} 

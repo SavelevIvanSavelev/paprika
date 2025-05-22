@@ -1,0 +1,94 @@
+{
+  "questions": [
+    {
+      "value": "INITIAL USER'S QUESTION 1",
+      "initial": true,
+      "answers": [
+        {
+          "correct": true,
+          "option_text": "OPTION 1 CORRECT",
+          "AI_full_response_text": "CORRECT: Some correct text",
+          "map": "src/assets/images/floors/floor2.svg",
+          "list": [
+            {
+              "name": "Rode paprika",
+              "price": "per stuk",
+              "img": "https://thumbs.dreamstime.com/b/two-red-paprika-vegetable-isolated-white-36846388.jpg",
+              "stockInfo": "100 stuks",
+              "stock": true
+            },
+            {
+              "name": "2 Rode paprika",
+              "price": "per stuk",
+              "img": "https://thumbs.dreamstime.com/b/two-red-paprika-vegetable-isolated-white-36846388.jpg",
+              "stockInfo": "0 stuks",
+              "stock": false
+            },
+            {
+              "name": "3 Rode paprika",
+              "price": "per stuk",
+              "img": "https://domf5oio6qrcr.cloudfront.net/medialibrary/5193/h0718g1620725736012.jpg",
+              "stockInfo": "100 stuks",
+              "stock": true
+            }
+          ],
+          "followup_text": "THANK YOU! CORRECT",
+          "positive_feedback": true
+        },
+        {
+          "correct": false,
+          "option_text": "OPTION 2 WRONG",
+          "AI_full_response_text": "WRONG Some wrong text",
+          "list": [
+            {
+              "name": "AH Oven & Airfryer courgette rode paprika",
+              "price": "per stuk",
+              "img": "https://domf5oio6qrcr.cloudfront.net/medialibrary/5193/h0718g1620725736012.jpg",
+              "stockInfo": "100 stuks",
+              "stock": true
+            }
+          ],
+          "followup_text": "USERS WRONG TEXT"
+        }
+      ]
+    },
+    {
+      "value": "INITIAL USER'S QUESTION 2",
+      "initial": true,
+      "answers": [
+        {
+          "correct": true,
+          "option_text": "OPTION 1 CORRECT",
+          "AI_full_response_text": "CORRECT: Some correct text",
+          "map": "src/assets/images/floors/floor2.svg",
+          "list": [
+            {
+              "name": "AH Oven & Airfryer courgette rode paprika",
+              "price": "per stuk",
+              "img": "https://thumbs.dreamstime.com/b/two-red-paprika-vegetable-isolated-white-36846388.jpg",
+              "stockInfo": "100 stuks",
+              "stock": true
+            }
+          ],
+          "followup_text": "THANK YOU. THAT's CORRECT.",
+          "positive_feedback": true
+        },
+        {
+          "correct": false,
+          "option_text": "OPTION 2 WRONG",
+          "AI_full_response_text": "WRONG Some wrong text",
+          "followup_text": "WRONG: some wrong text",
+          "list": [
+            {
+              "name": "AH Oven & Airfryer courgette rode paprika",
+              "price": "per stuk",
+              "img": "https://domf5oio6qrcr.cloudfront.net/medialibrary/5193/h0718g1620725736012.jpg",
+              "stockInfo": "100 stuks",
+              "stock": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+} 
