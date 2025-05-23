@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+// Utility to filter out $isOpen, isAI, and $isSelected
+const shouldForwardProp = (prop: string) =>
+  prop !== '$isOpen' && prop !== 'isAI' && prop !== '$isSelected';
+
 export const Container = styled.div`
   max-width: 600px;
   margin: 0 auto;
@@ -40,7 +44,9 @@ export const IconButton = styled.button`
   color: #333;
 `;
 
-export const ChatBubble = styled.div<{ isAI?: boolean }>`
+export const ChatBubble = styled.div.withConfig({ shouldForwardProp })<{
+  isAI?: boolean;
+}>`
   background-color: ${props => props.isAI ? '#fff' : '  rgb(61, 181, 242)'};
   color: ${props => props.isAI ? '#333' : 'white'};
   padding: 12px 16px;
@@ -137,21 +143,21 @@ export const ProductUnit = styled.p`
   margin-bottom: 12px;
 `;
 
-export const StockInfo = styled.div<{ inStock?: boolean }>`
+export const StockInfo = styled.div<{ $inStock?: boolean }>`
   display: flex;
   align-items: center;
   gap: 8px;
   padding-bottom: 2px;
   font-size: 12px;
   font-weight: 400;
-  color: ${props => props.inStock ? '#26313A' : '#26313A'};
+  color: ${props => props.$inStock ? '#26313A' : '#26313A'};
 
   &::before {
     content: '';
     display: inline-block;
     width: 16px;
     height: 16px;
-    background-image: ${props => props.inStock 
+    background-image: ${props => props.$inStock 
       ? "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2314D055'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E\")"
       : "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23EE0000'%3E%3Cpath d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z'/%3E%3C/svg%3E\")"
     };
@@ -407,4 +413,22 @@ export const ReloadContainer = styled.div`
     animation: spin 1s linear infinite;
     color: #fff;
   }
-`; 
+`;
+
+export const CustomButton = styled.button.withConfig({ shouldForwardProp })<{
+  $isOpen?: boolean;
+  $isSelected?: boolean;
+}>`
+  background: ${({ $isSelected }) => ($isSelected ? '#00ADE6' : '#fff')};
+  color: ${({ $isSelected }) => ($isSelected ? '#fff' : '#333')};
+  border: 1px solid #ddd;
+  border-radius: 24px;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background: #f5f5f5;
+  }
+`;

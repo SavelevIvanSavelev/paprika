@@ -1,12 +1,15 @@
 import React, { useState, FormEvent, useEffect, useRef } from 'react';
-import { ReactComponent as Floor2Icon } from './assets/images/floors/floor2.svg';
+// import { ReactComponent as Floor2Icon } from './assets/images/floors/floor2.svg';
 import { IoArrowBack, IoInformationCircleOutline, IoChevronForward } from 'react-icons/io5';
 import { BiMessageAdd } from 'react-icons/bi';
 import { BsStars } from 'react-icons/bs';
 import { Icons } from './assets/image';
-import { FloorMaps } from './assets/image';
+// import { FloorMaps } from './assets/image';
 import questionsConfig from './config/questions.json';
 import GlobalStyles from './styles/globalStyles';
+import FloorPlanViewer, { FloorPlanMiniature, loadBoxes } from './components/FloorPlanViewer';
+import type { BoxProps } from './components/FloorPlanViewer'
+
 // import floor2Image from './assets/image';
 import {
   Container,
@@ -84,6 +87,7 @@ const App: React.FC = () => {
   const [isQuizFinished, setIsQuizFinished] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [boxes, setBoxes] = useState<BoxProps[]>([])
 
   useEffect(() => {
     const initialQuestions = questionsConfig.questions.filter(q => q.initial === true);
@@ -94,6 +98,7 @@ const App: React.FC = () => {
       setMessages([{ text: initialQuestion, isAI: false }]);
       setCurrentQuestion(initialQuestion);
     }
+    loadBoxes().then(setBoxes)
   }, []);
 
   useEffect(() => {
@@ -276,22 +281,30 @@ const App: React.FC = () => {
             </ChatBubble>
             </div>
             {message.isAI && message.map && (
+              <>
+              <div
+                style={{
+                  minHeight: '100%',
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'flex-start',
+                  gap: 24,
+                  padding: 24,
+                  // background: '#f8f8f8',
+                  boxSizing: 'border-box',
+                }}
+              >
+                {/* <div style={{ border: '2px solid #222', borderRadius: 8, overflow: 'hidden', marginBottom: 16 }}>
+                  <FloorPlanMiniature boxes={boxes} />
+                </div> */}
+                <div style={{ border: '2px solid #222', borderRadius: 8, overflow: 'hidden', width: '400px', height: '400px' }}>
+                  <FloorPlanViewer boxes={boxes} />
+                </div>
+              </div>
               <Location>
     <div style={{ position: 'relative' }}>
-      {message.map === 'src/assets/images/floors/floor2.svg' ? (
-        <Floor2Icon style={{ maxWidth: '100%', height: 'auto' }} />
-      ) : message.map.startsWith('@') ? (
-        (() => {
-          const SVGComponent = FloorMaps[message.map.slice(1) as keyof typeof FloorMaps];
-          return <SVGComponent style={{ maxWidth: '100%', height: 'auto' }} />;
-        })()
-      ) : (
-        <img 
-          src={message.map} 
-          alt="Location map" 
-          style={{ maxWidth: '100%', height: 'auto' }} 
-        />
-      )}
       <div style={{ 
         position: 'absolute', 
         bottom: '12px', 
@@ -308,6 +321,7 @@ const App: React.FC = () => {
       </div>
     </div>
   </Location>
+  </>
             )}
             
             {message.isAI && message.list && message.list.length > 0 && (
@@ -337,7 +351,7 @@ const App: React.FC = () => {
                       </div>
                     
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginTop: '4px' }}>
-                      <div><StockInfo inStock={product.stock}>{product.stockInfo}</StockInfo>
+                      <div><StockInfo $inStock={product.stock}>{product.stockInfo}</StockInfo>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                           <Icons.PointMarkerFilled style={{ width: '16px', height: '16px', color: '#666', display: 'flex', alignItems: 'center' }} />
                           <span style={{ color: '#666', fontSize: '14px', lineHeight: '20px' }}>AGF</span>

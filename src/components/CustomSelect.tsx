@@ -20,7 +20,7 @@ const SelectContainer = styled.div`
   width: 100%;
 `;
 
-const SelectButton = styled.button<{ isOpen: boolean }>`
+const SelectButton = styled.button<{ $isOpen: boolean }>`
   width: 100%;
   padding: 12px;
   border: 1px solid #ddd;
@@ -36,11 +36,11 @@ const SelectButton = styled.button<{ isOpen: boolean }>`
 
   svg {
     transition: transform 0.2s ease;
-    transform: ${props => props.isOpen ? 'rotate(180deg)' : 'rotate(0)'};
+    transform: ${props => props.$isOpen ? 'rotate(180deg)' : 'rotate(0)'};
   }
 `;
 
-const DropdownList = styled.div<{ isOpen: boolean }>`
+const DropdownList = styled.div<{ $isOpen: boolean }>`
   position: absolute;
   bottom: 100%;
   left: 0;
@@ -51,18 +51,18 @@ const DropdownList = styled.div<{ isOpen: boolean }>`
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   max-height: 300px;
   overflow-y: auto;
-  opacity: ${props => props.isOpen ? 1 : 0};
-  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
-  transform: ${props => props.isOpen ? 'translateY(0)' : 'translateY(10px)'};
+  opacity: ${props => props.$isOpen ? 1 : 0};
+  visibility: ${props => props.$isOpen ? 'visible' : 'hidden'};
+  transform: ${props => props.$isOpen ? 'translateY(0)' : 'translateY(10px)'};
   transition: all 0.2s ease;
   z-index: 1000;
 `;
 
-const Option = styled.button<{ isSelected: boolean }>`
+const Option = styled.button<{ $isSelected: boolean }>`
   width: 100%;
   padding: 12px 16px;
-  background: ${props => props.isSelected ? '#00ADE6' : 'white'};
-  color: ${props => props.isSelected ? 'white' : '#333'};
+  background: ${props => props.$isSelected ? '#00ADE6' : 'white'};
+  color: ${props => props.$isSelected ? 'white' : '#333'};
   border: none;
   text-align: left;
   font-size: 16px;
@@ -70,7 +70,7 @@ const Option = styled.button<{ isSelected: boolean }>`
   font-family: 'HamburgSerial', sans-serif;
 
   &:hover {
-    background: ${props => props.isSelected ? '#00ADE6' : '#f5f5f5'};
+    background: ${props => props.$isSelected ? '#00ADE6' : '#f5f5f5'};
   }
 
   &:first-child {
@@ -91,7 +91,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   placeholder = 'Selecteer een antwoord',
   disabled = false
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [$isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -118,20 +118,20 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     <SelectContainer ref={containerRef}>
       <SelectButton
         type="button"
-        onClick={() => !disabled && setIsOpen(!isOpen)}
-        isOpen={isOpen}
+        onClick={() => !disabled && setIsOpen(!$isOpen)}
+        $isOpen={$isOpen}
         disabled={disabled}
         value={value}
       >
         <span>{selectedOption?.label || placeholder}</span>
         <IoChevronDown />
       </SelectButton>
-      <DropdownList isOpen={isOpen}>
+      <DropdownList $isOpen={$isOpen}>
         {options.map((option) => (
           <Option
             key={option.value}
             onClick={() => handleSelect(option.value)}
-            isSelected={option.value === value}
+            $isSelected={option.value === value}
           >
             {option.label}
           </Option>
