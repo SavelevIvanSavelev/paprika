@@ -80,7 +80,6 @@ const App: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
-  const [currentInitialQuestionIndex, setCurrentInitialQuestionIndex] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isQuizFinished, setIsQuizFinished] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
