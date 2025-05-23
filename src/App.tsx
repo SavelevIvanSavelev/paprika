@@ -83,6 +83,7 @@ const App: React.FC = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isQuizFinished, setIsQuizFinished] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const initialQuestions = questionsConfig.questions.filter(q => q.initial === true);
@@ -121,6 +122,12 @@ const App: React.FC = () => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
 
   const handleImageError = (index: number) => {
     setImageLoadError(prev => {
@@ -366,6 +373,7 @@ const App: React.FC = () => {
             )}
           </React.Fragment>
         ))}
+        <div ref={messagesEndRef} />
 
         {isLoading && (
           <>
