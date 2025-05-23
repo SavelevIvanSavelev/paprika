@@ -41,7 +41,7 @@ export const IconButton = styled.button`
 `;
 
 export const ChatBubble = styled.div<{ isAI?: boolean }>`
-  background-color: ${props => props.isAI ? '#fff' : 'rgb(61, 181, 242)'};
+  background-color: ${props => props.isAI ? '#fff' : '  rgb(61, 181, 242)'};
   color: ${props => props.isAI ? '#333' : 'white'};
   padding: 12px 16px;
   border-radius: ${props => props.isAI ? '20px' : '8px 8px 0 8px'};
@@ -382,7 +382,7 @@ export const ReloadContainer = styled.div`
   max-width: 600px;
   margin: 0 auto;
   padding: 12px;
-  color: #666;
+  color: #fff;
   text-align: center;
 
   p {
@@ -390,16 +390,21 @@ export const ReloadContainer = styled.div`
     font-size: 14px;
   }
 
-  // svg {
-  //   animation: spin 1s linear infinite;
-  // }
+  svg {
+    animation: spin 1s linear infinite;
+  }
 
-  // @keyframes spin {
-  //   from {
-  //     transform: rotate(0deg);
-  //   }
-  //   to {
-  //     transform: rotate(360deg);
-  //   }
-  // }
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .spin {
+    animation: spin 1s linear infinite;
+    color: #fff;
+  }
 `; 

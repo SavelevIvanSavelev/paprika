@@ -7,7 +7,7 @@ import { Icons } from './assets/image';
 import { FloorMaps } from './assets/image';
 import questionsConfig from './config/questions.json';
 import GlobalStyles from './styles/globalStyles';
-import floor2Image from './assets/images/floors/floor2.svg';
+// import floor2Image from './assets/image';
 import {
   Container,
   Header,
@@ -68,14 +68,6 @@ const FallbackImage: React.FC = () => {
   return <IconComponent style={{ width: '100%', height: '100%' }} />;
 };
 
-// const ScrollableContainer: React.FC<{ children: React.ReactNode }> = ({ children }): React.ReactElement => {
-//   return (
-//     <div style={{ width: '100%' }}>
-//       {children}
-//     </div>
-//   );
-// };
-
 const App: React.FC = () => {
   const [imageLoadError, setImageLoadError] = useState<boolean[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -89,16 +81,18 @@ const App: React.FC = () => {
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [currentInitialQuestionIndex, setCurrentInitialQuestionIndex] = useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [isQuizFinished, setIsQuizFinished] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const initialQuestions = questionsConfig.questions.filter(q => q.initial === true);
     if (initialQuestions.length > 0) {
-      const nextIndex = currentInitialQuestionIndex % initialQuestions.length;
-      const initialQuestion = initialQuestions[nextIndex].value;
+      setCurrentQuestionIndex(0);
+      setIsQuizFinished(false);
+      const initialQuestion = initialQuestions[0].value;
       setMessages([{ text: initialQuestion, isAI: false }]);
       setCurrentQuestion(initialQuestion);
-      setCurrentInitialQuestionIndex(nextIndex + 1);
     }
   }, []);
 
@@ -110,9 +104,7 @@ const App: React.FC = () => {
   }, [messages]);
 
   useEffect(() => {
-    // Convert floor2.png to data URL when component mounts
     const img = new Image();
-    img.src = floor2Image;
     img.onload = () => {
       const canvas = document.createElement('canvas');
       canvas.width = img.width;
@@ -121,7 +113,6 @@ const App: React.FC = () => {
       if (ctx) {
         ctx.drawImage(img, 0, 0);
         const dataUrl = canvas.toDataURL('image/svg');
-        // Update all messages that use floor2.png to use the data URL instead
         setMessages(prevMessages => 
           prevMessages.map(msg => ({
             ...msg,
@@ -158,43 +149,17 @@ const App: React.FC = () => {
     };
   };
 
-  // const handlePositiveFeedback = () => {
-  //   // Force state updates to be synchronous
-  //   Promise.resolve().then(() => {
-  //     setHasPositiveFeedback(true);
-  //     setIsReloading(true);
-      
-  //     // Set positive feedback in the last message
-  //     setMessages(prevMessages => {
-  //       const updatedMessages = [...prevMessages];
-  //       const lastMessage = updatedMessages[updatedMessages.length - 1];
-  //       lastMessage.positive_feedback = true;
-  //       return updatedMessages;
-  //     });
-
-  //     // Show success snackbar
-  //     // Show success snackbar
-  //     // setShowSuccessSnackbar(true);
-  //     // Hide feedback buttons
-  //     setShowFeedback(false);
-  //   });
-    
-  //   // Show next question after 2 seconds
-  //   setTimeout(() => {
-  //     handleReload();
-  //   }, 2000);
-  // };
-
-  // Add useEffect to track state changes
   useEffect(() => {
     console.log('State updated:', { isReloading, hasPositiveFeedback });
   }, [isReloading, hasPositiveFeedback]);
+
+  const getInitialQuestions = () => questionsConfig.questions.filter(q => q.initial === true);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (selectedOption && !isLoading) {
       setIsLoading(true);
-      
+
       setTimeout(() => {
         const aiResponse = findAIResponse(currentQuestion, selectedOption);
         const newMessage: Message = { 
@@ -204,41 +169,31 @@ const App: React.FC = () => {
           list: aiResponse.list,
           followup_text: aiResponse.followup_text,
           isFollowupLoading: false,
-          showFollowup: false
+          showFollowup: true
         };
 
         setMessages(prevMessages => [...prevMessages, newMessage]);
         setIsLoading(false);
         setSelectedOption('');
 
-        if (aiResponse.followup_text) {
-          setMessages(prevMessages => {
-            const updatedMessages = [...prevMessages];
-            const lastMessage = updatedMessages[updatedMessages.length - 1];
-            lastMessage.isFollowupLoading = true;
-            return updatedMessages;
-          });
-
-          setTimeout(() => {
-            setMessages(prevMessages => {
-              const updatedMessages = [...prevMessages];
-              const lastMessage = updatedMessages[updatedMessages.length - 1];
-              lastMessage.isFollowupLoading = false;
-              lastMessage.showFollowup = true;
-              return updatedMessages;
-            });
-          }, 2000);
-        }
-
-        // Check if the selected answer is correct
         const questionConfig = questionsConfig.questions.find(q => q.value === currentQuestion);
         const selectedAnswer = questionConfig?.answers.find(answer => answer.option_text === selectedOption);
-        
+
         if (selectedAnswer?.correct) {
-          // Show feedback buttons after 2 seconds
-          setTimeout(() => {
-            setShowFeedback(true);
-          }, 2000);
+          const initialQuestions = getInitialQuestions();
+          if (currentQuestionIndex + 1 < initialQuestions.length) {
+            const nextQuestion = initialQuestions[currentQuestionIndex + 1].value;
+            setTimeout(() => {
+              setMessages(prevMessages => [...prevMessages, { text: nextQuestion, isAI: false }]);
+              setCurrentQuestion(nextQuestion);
+              setCurrentQuestionIndex(currentQuestionIndex + 1);
+            }, 1000);
+          } else {
+            setTimeout(() => {
+              setShowFeedback(true); // <-- Only show feedback on last question
+              setIsQuizFinished(true);
+            }, 1000);
+          }
         }
       }, 500);
     }
@@ -255,13 +210,13 @@ const App: React.FC = () => {
   };
 
   const handleReload = () => {
-    const initialQuestions = questionsConfig.questions.filter(q => q.initial === true);
+    const initialQuestions = getInitialQuestions();
     if (initialQuestions.length > 0) {
-      const nextIndex = currentInitialQuestionIndex % initialQuestions.length;
-      const initialQuestion = initialQuestions[nextIndex].value;
+      setCurrentQuestionIndex(0);
+      setIsQuizFinished(false);
+      const initialQuestion = initialQuestions[0].value;
       setMessages([{ text: initialQuestion, isAI: false }]);
       setCurrentQuestion(initialQuestion);
-      setCurrentInitialQuestionIndex(nextIndex + 1);
       setShowFeedback(false);
       setIsReloading(false);
       setHasPositiveFeedback(false);
@@ -445,7 +400,7 @@ const App: React.FC = () => {
           </FeedbackContainer>
         )}
 
-        {messages.length > 0 && showFeedback ? (
+        {isQuizFinished ? (
           <ReloadContainer>
             <IconButton onClick={handleReload} style={{
               width: '100%', 
@@ -459,7 +414,7 @@ const App: React.FC = () => {
               justifyContent: 'center',
               gap: '8px'
               }}>
-            Next question <Icons.RightChevron style={{ width: 24, height: 24 }} />
+            Reload<Icons.Reload style={{ width: 24, height: 24 }} className="spin" />
             </IconButton>
           </ReloadContainer>
         ) : (
@@ -471,58 +426,7 @@ const App: React.FC = () => {
                 label: answer.option_text
               }))}
               value={selectedOption}
-              onChange={(value) => {
-                setSelectedOption(value);
-                if (value) {
-                  setIsLoading(true);
-                  setTimeout(() => {
-                    const aiResponse = findAIResponse(currentQuestion, value);
-                    const newMessage: Message = {
-                      text: aiResponse.text,
-                      isAI: true,
-                      map: aiResponse.map,
-                      list: aiResponse.list,
-                      followup_text: aiResponse.followup_text,
-                      isFollowupLoading: false,
-                      showFollowup: false
-                    };
-
-                    setMessages(prevMessages => [...prevMessages, newMessage]);
-                    setIsLoading(false);
-                    setSelectedOption('');
-
-                    if (aiResponse.followup_text) {
-                      setMessages(prevMessages => {
-                        const updatedMessages = [...prevMessages];
-                        const lastMessage = updatedMessages[updatedMessages.length - 1];
-                        lastMessage.isFollowupLoading = true;
-                        return updatedMessages;
-                      });
-
-                      setTimeout(() => {
-                        setMessages(prevMessages => {
-                          const updatedMessages = [...prevMessages];
-                          const lastMessage = updatedMessages[updatedMessages.length - 1];
-                          lastMessage.isFollowupLoading = false;
-                          lastMessage.showFollowup = true;
-                          return updatedMessages;
-                        });
-                      }, 2000);
-                    }
-
-                    // Check if the selected answer is correct
-                    const questionConfig = questionsConfig.questions.find(q => q.value === currentQuestion);
-                    const selectedAnswer = questionConfig?.answers.find(answer => answer.option_text === value);
-                    
-                    if (selectedAnswer?.correct) {
-                      // Show feedback buttons after 2 seconds
-                      setTimeout(() => {
-                        setShowFeedback(true);
-                      }, 2000);
-                    }
-                  }, 1000);
-                }
-              }}
+              onChange={(value) => setSelectedOption(value)}
               disabled={isLoading}
             />
             {isLoading && (
